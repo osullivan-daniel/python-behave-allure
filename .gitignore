@@ -1,2 +1,3 @@
 .vscode
 configs/env.json
+__pycache__
