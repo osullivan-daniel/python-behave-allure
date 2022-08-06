@@ -21,4 +21,4 @@ def make_request(method: str, url: str) -> Response:
                            url = url,
                            headers = headers)     
 
-    print(res.content)      
+    print(json.loads(res.content))      
