@@ -2,7 +2,8 @@
 This repo is automatically cloned when starting the docker container in python-behave-allure-docker
 
 ## app_key
-You will need to register with tfl and generate a key - https://api.tfl.gov.uk/
+Acording to the tfl webaite you will need to register with tfl and generate a key - https://api.tfl.gov.uk/ however i have seen it work without a key....
+
 
 Once registered:
     - Go to 'Products' along the top main bar

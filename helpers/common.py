@@ -19,4 +19,6 @@ def make_request(method: str, url: str) -> Response:
 
     res = requests.request(method = method,
                            url = url,
-                           headers = headers)           
+                           headers = headers)     
+
+    print(res.content)      
