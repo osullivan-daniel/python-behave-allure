@@ -1,4 +1,4 @@
-def account_creaton_params():
+def account_creation_params():
     return{
             "action":"query",
             "meta":"tokens",
@@ -6,13 +6,13 @@ def account_creaton_params():
             "format":"json"
         }
 
-def create_test_user_params(token: str, url:str):
+def create_test_user_params(token: str, username:str, password:str, url:str):
     return{
             "action": "createaccount",
             "createtoken": token,
-            "username": "test_user",
-            "password": "vmaJenMU",
-            "retype": "vmaJenMU",
+            "username": username,
+            "password": password,
+            "retype": password,
             "createreturnurl": url,
             "format": "json"
         }

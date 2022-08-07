@@ -1,6 +1,8 @@
 from email import header
 import os
 import json
+import random
+import string
 import requests
 
 from requests.models import Response
@@ -14,9 +16,6 @@ def load_configs(name: str) -> str:
 def make_get_request(url: str, params: json = None) -> Response:
     return __make_request__('GET', url, params=params)
 
-def make_post_request(url: str, data:json = None) -> Response:
-    return __make_request__('POST', url, data=data)
-
 def __make_request__(method: str, url: str, params: json = None, data: json = None) -> Response:
     headers = {'Cache-Control': 'no-cache'}
 
@@ -27,4 +26,7 @@ def __make_request__(method: str, url: str, params: json = None, data: json = No
                            data=data)
 
     return res.status_code, json.loads(res.content)   
+
+def random_string(length: int = 5):
+    return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(length))
 

@@ -1,36 +1,43 @@
 import json
-import pytest
 import allure
-import conftest
-
-from helpers.common import make_get_request, make_post_request
-from data.create_user import *
+from helpers.media_wiki.create_account import create_new_account
 
 class Test_create_account:
 
     @allure.title('Test valid create account')
     def test_create_account(self):
 
-        # et some required vars etc
-        with allure.step('Before'):
-            base_url = conftest.mediawiki_config['base_url']
-            full_url = f"{conftest.mediawiki_config['base_url']}{conftest.mediawiki_config['api_end_point']}"
+        with allure.step('Create new account'):
+            res_body, password = create_new_account()
+
+        # look for an endpoint to do this
+        with allure.step('Get account info to verify it was created'):
+            pass
         
-        with allure.step('Retrieve account creaton token'):
-            status_code, res = make_get_request(full_url, account_creaton_params())
-            assert status_code == 200, f'Expected a 200 status code got {status_code}. \nResponse::\n {json.dumps(res, indent=4, sort_keys=True)}'
-            print(res)
-
-        with allure.step('Create account'):
-            create_user_params = create_test_user_params(res['query']['tokens']['createaccounttoken'], base_url)
-            print(create_user_params)
-            status_code, res = make_post_request(full_url, create_user_params)
-            print(status_code)
-            print(res)
+        # alternate if no endpoint
+        with allure.step('Loggin new account to verify it was created'):
             pass
 
-        with allure.step(''):
-            pass
 
-        with allure.step(''):
-            assert 1==2
+
+
+    @allure.title('Test unable to create second account with the same username')
+    def test_create_duplicate_account(self):
+
+        with allure.step('Create new account'):
+            res_body, password = create_new_account()
+            username = res_body['createaccount']['username']
+
+        
+        with allure.step('Attempt to create account with samename'):
+            res_body, password = create_new_account(username=username, run_assertions=False)
+                        
+            # There is no message code in valid messages so it should be there
+            assert 'messagecode' in res_body['createaccount'], \
+            f'''We shouldnt be able to create two accounts with the same user name 
+            please check the message for more details. \nResponse::\n {json.dumps(res_body, indent=4, sort_keys=True)}'''
+
+            # if the message code is there we expect it to be userexists
+            assert res_body['createaccount']['messagecode'] == 'userexists', \
+            f'''We shouldnt be able to create two accounts with the same user name 
+            please check the message for more details. \nResponse::\n {json.dumps(res_body, indent=4, sort_keys=True)}'''
