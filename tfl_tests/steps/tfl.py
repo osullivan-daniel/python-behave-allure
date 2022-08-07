@@ -1,5 +1,6 @@
 import ast
 import json
+import allure
 import operator
 import functools
 
@@ -28,10 +29,13 @@ def step_impl(context, search_from, search_to, mode_of_transport=None):
 
     context.res_code, context.res_content = make_request('GET', url)
 
+    allure.attach(json.dumps(context.res_content, indent=4, sort_keys=True), 'apiResponse.txt')
+    # print(json.dumps(context.res_content, indent=4, sort_keys=True))
+
 
 @then('they should get a valid result')
 def step_impl(context):
-    # ṃake sure we dont get a client (400's) or a server (500's) error
+    # ṃake sure we dont get a client (400's) or a server (500's) errorreturned_mode_of_transport.append
     assert context.res_code < 400, f'Unexpected status code: {context.res_code}'
 
 
@@ -59,7 +63,8 @@ def step_impl(context, expected_mode_of_transport):
 
     returned_mode_of_transport = []
     for each in context.res_content['toLocationDisambiguation']['disambiguationOptions']:
-        returned_mode_of_transport.append(each['place']['modes'])
+        if 'modes' in each['place']:
+            returned_mode_of_transport.append(each['place']['modes'])
 
     # latten list of lists
     returned_mode_of_transport = functools.reduce(operator.iconcat, returned_mode_of_transport, [])
@@ -68,4 +73,4 @@ def step_impl(context, expected_mode_of_transport):
     assert set(expected_mode_of_transport).issubset(returned_mode_of_transport), f'Not all of the expected locatons were found. Expected: {expected_mode_of_transport}, Found: {returned_mode_of_transport}'
 
     # Ạlternativly we could assert they match exactly - would depend on the requirments
-    assert set(expected_mode_of_transport) == set(returned_mode_of_transport), f'Expected does not match found exactly. Expected: {expected_mode_of_transport}, Found: {returned_mode_of_transport}'
+    # assert set(expected_mode_of_transport) == set(returned_mode_of_transport), f'Expected does not match found exactly. Expected: {expected_mode_of_transport}, Found: {returned_mode_of_transport}'

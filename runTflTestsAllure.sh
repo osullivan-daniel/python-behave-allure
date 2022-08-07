@@ -1,3 +1,4 @@
+#!/bin/bash
 source ~/.profile
 
 # Remove existing results

@@ -7,9 +7,9 @@ Scenario Outline: Valid Journey
     And it should suggest starting points <starting_points>
     And it should suggest mode of transport <expected_mode_of_transport>
 
-    # Examples: both inside london
-    #     | search_from                             | search_to                 | starting_points                                                                       | mode_of_transport | expected_mode_of_transport |
-    #     | '69 Notting Hill Gate, London, W11 3JS' | 'Stansted Airport London' | ['Kensington (London), Notting Hill Gate', 'Westminster (London), Notting Hill Gate'] | tube              | ["national-rail"]         | 
+    Examples: both inside london
+        | search_from                             | search_to         | starting_points                                                                       | mode_of_transport | expected_mode_of_transport |
+        | '69 Notting Hill Gate, London, W11 3JS' | 'Canary Wharf'    | ['Kensington (London), Notting Hill Gate', 'Westminster (London), Notting Hill Gate'] | bus              | ["tube"]         | 
     
     Examples: one inside london, one outside london
         | search_from                             | search_to                 | starting_points                                                                       | mode_of_transport | expected_mode_of_transport |

@@ -12,7 +12,7 @@ Once registered:
     - Then type a name into the box just under 'Your subscriptions'  
     - and press the 'Subscribe' button  
     - Then go to 'Profile' along the top main bar  
-    - Copy your 'Primary key' and replace the string 'PUT_YOUR_APP_KEY_HERE' in your 'configs/env.json'  
+    - Copy your 'Primary key' and replace the string 'PUT_YOUR_APP_KEY_HERE' in your 'configs/tfl.json'  
 
 
 ## The Tests
