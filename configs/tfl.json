@@ -1,6 +1,6 @@
 {
     "tfl":{
-        "app_key":"PUT_YOUR_APP_KEY_HERE123",
+        "app_key":"PUT_YOUR_APP_KEY_HERE",
         "journeys_url": "https://api.tfl.gov.uk/Journey/JourneyResults"
     }
 }

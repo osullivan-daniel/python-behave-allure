@@ -13,3 +13,7 @@ Once registered:
     - and press the 'Subscribe' button  
     - Then go to 'Profile' along the top main bar  
     - Copy your 'Primary key' and replace the string 'PUT_YOUR_APP_KEY_HERE' in your 'configs/env.json'  
+
+
+## The Tests
+Note one of the tfl tests fails. This is intentonal. As the test requests a journey by bus and only one by rail is returned the test fails. The returned json makes no mention of it being an alternative so to me that sounds like a fail on the face of without discussing the ratonal behind it working like this.
