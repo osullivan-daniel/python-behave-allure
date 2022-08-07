@@ -5,7 +5,7 @@ import operator
 import functools
 
 from behave import given, when, then
-from helpers.common import load_configs, make_request
+from helpers.common import load_configs, make_get_request
 
 
 @given('the user have access to the tfl api')
@@ -27,7 +27,7 @@ def step_impl(context, search_from, search_to, mode_of_transport=None):
     
     url = f"{context.journeys_url}/{to_from}?{app_key}" if optonal == '' else f"{context.journeys_url}/{to_from}?{optonal}&{app_key}"
 
-    context.res_code, context.res_content = make_request('GET', url)
+    context.res_code, context.res_content = make_get_request(url)
 
     allure.attach(json.dumps(context.res_content, indent=4, sort_keys=True), 'apiResponse.txt')
     # print(json.dumps(context.res_content, indent=4, sort_keys=True))

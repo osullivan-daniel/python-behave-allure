@@ -11,12 +11,20 @@ def load_configs(name: str) -> str:
         data = json.load(input)
         return data[name]
 
+def make_get_request(url: str, params: json = None) -> Response:
+    return __make_request__('GET', url, params=params)
 
-def make_request(method: str, url: str) -> Response:
+def make_post_request(url: str, data:json = None) -> Response:
+    return __make_request__('POST', url, data=data)
+
+def __make_request__(method: str, url: str, params: json = None, data: json = None) -> Response:
     headers = {'Cache-Control': 'no-cache'}
 
     res = requests.request(method = method,
-                        url = url,
-                        headers = headers)     
+                           url = url,
+                           headers = headers,
+                           params=params,
+                           data=data)
 
     return res.status_code, json.loads(res.content)   
+
