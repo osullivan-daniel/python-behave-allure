@@ -5,20 +5,18 @@ import requests
 
 from requests.models import Response
 
-
 def load_configs(name: str) -> str:
-    filepath = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'configs/env.json'))
+    filepath = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', f'configs/{name}.json'))
     with open(filepath) as input:
         data = json.load(input)
         return data[name]
 
 
 def make_request(method: str, url: str) -> Response:
-
-    headers = {}
+    headers = {'Cache-Control': 'no-cache'}
 
     res = requests.request(method = method,
-                           url = url,
-                           headers = headers)     
+                        url = url,
+                        headers = headers)     
 
-    print(json.loads(res.content))      
+    return res.status_code, json.loads(res.content)   
