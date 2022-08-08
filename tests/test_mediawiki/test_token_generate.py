@@ -1,3 +1,4 @@
+import json
 import allure
 import conftest
 import requests
@@ -20,10 +21,12 @@ class Test_create_csrf_token:
 
 
         with allure.step('Generate a CSRF token'):
-            res_body = gen_csrf_token(sesh)
+            res = gen_csrf_token(sesh)
 
-            print(res_body)
-            assert 1==2
+            assert res.status_code == 200, f'Expected a 200 status code got {res.status_code}. \nResponse::\n {json.dumps(res_body, indent=4, sort_keys=True)}'
+            
+            res_body = res.json()
+            assert 'csrftoken' in res_body['query']['tokens'], f'Expected to find csrftoken in responce. \nResponse::\n {json.dumps(res_body, indent=4, sort_keys=True)}'
 
             
         # with allure.step('Create new account'):

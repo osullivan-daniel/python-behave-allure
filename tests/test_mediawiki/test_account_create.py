@@ -1,5 +1,6 @@
 import json
 import allure
+import conftest
 import requests
 
 from helpers.media_wiki.login import login_account
@@ -31,12 +32,11 @@ class Test_create_account:
         
         with allure.step('Before'):
             sesh = requests.Session()
-
-        with allure.step('Create new account'):
-            username, password, res_body = create_new_account(sesh)
+            username = conftest.crud_user
+            password = conftest.crud_password
                     
-        with allure.step('Attempt to create account with samename'):
-            username, password, res_body = create_new_account(sesh, username=username)
+        with allure.step('Attempt to create account with same username as our crud user'):
+            username, password, res_body = create_new_account(sesh, username, password)
                         
             # There is no message code in valid messages so it should be there
             assert 'messagecode' in res_body['createaccount'], \
