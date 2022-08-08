@@ -1,12 +1,10 @@
 import json
 import conftest
-import requests
 
 from data.login import *
-from helpers.common import random_string
 
-def login_account(username: str, password: str, run_assertions: bool = False):
-    sesh = requests.Session()
+
+def login_account(sesh, username: str, password: str, run_assertions: bool = False):
 
     base_url = f"{conftest.mediawiki_config['base_url']}"
     full_url = f"{conftest.mediawiki_config['base_url']}{conftest.mediawiki_config['api_end_point']}"
@@ -28,7 +26,7 @@ def login_account(username: str, password: str, run_assertions: bool = False):
 
     if run_assertions:
         assert res.status_code == 200, f'Expected a 200 status code got {res.status_code}. \nResponse::\n {json.dumps(res_body, indent=4, sort_keys=True)}'
-        # assert res_body['createaccount']['status'] != 'FAIL', f'Status FAIL found. \nResponse::\n {json.dumps(res_body, indent=4, sort_keys=True)}'
+        assert res_body['clientlogin']['status'] != 'FAIL', f'Status FAIL found. \nResponse::\n {json.dumps(res_body, indent=4, sort_keys=True)}'
 
     return res_body
 

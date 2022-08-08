@@ -1,13 +1,11 @@
 import json
 import conftest
-import requests
 
 from data.create_user import *
 from helpers.common import random_string
 
-def create_new_account(username: str = None, password: str = None, run_assertions: bool = False):
-    sesh = requests.Session()
-
+def create_new_account(sesh, username: str = None, password: str = None, run_assertions: bool = False):
+    
     base_url = conftest.mediawiki_config['base_url']
     full_url = f"{conftest.mediawiki_config['base_url']}{conftest.mediawiki_config['api_end_point']}"
 
