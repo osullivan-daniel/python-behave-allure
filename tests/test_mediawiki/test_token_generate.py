@@ -27,12 +27,3 @@ class Test_create_csrf_token:
             
             res_body = res.json()
             assert 'csrftoken' in res_body['query']['tokens'], f'Expected to find csrftoken in responce. \nResponse::\n {json.dumps(res_body, indent=4, sort_keys=True)}'
-
-            
-        # with allure.step('Create new account'):
-            
-       
-        # # alternate if no endpoint
-        # with allure.step('Loggin new account to verify it was created'):
-            
-            
