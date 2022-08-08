@@ -5,7 +5,7 @@ import requests
 from data.create_user import *
 from helpers.common import random_string
 
-def create_new_account(username: str = None, password: str = None, run_assertions: bool = True):
+def create_new_account(username: str = None, password: str = None, run_assertions: bool = False):
     sesh = requests.Session()
 
     base_url = conftest.mediawiki_config['base_url']
@@ -32,5 +32,5 @@ def create_new_account(username: str = None, password: str = None, run_assertion
         assert res.status_code == 200, f'Expected a 200 status code got {res.status_code}. \nResponse::\n {json.dumps(res_body, indent=4, sort_keys=True)}'
         assert res_body['createaccount']['status'] != 'FAIL', f'Status FAIL found. \nResponse::\n {json.dumps(res_body, indent=4, sort_keys=True)}'
 
-    return res_body, password
+    return username, password, res_body
 
