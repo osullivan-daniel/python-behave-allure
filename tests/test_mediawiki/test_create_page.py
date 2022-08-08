@@ -29,19 +29,53 @@ class Test_create_page:
                 csrf_token = res_body['query']['tokens']['csrftoken']
 
         with allure.step('Generate page data'):
+            test_page_title = f"Test Page {random_string()}"
+
             new_page = page_base_fields(csrf_token)
-            test_page = f"Test_{random_string()}"
-            new_page['title'] = test_page
+            new_page['title'] = test_page_title
             new_page['text'] = f"New Page Create Example"
             
             res = post_page(sesh, new_page)
 
-            res = search_wiki_pages(sesh, 'New')
-
-            print(res.status_code)
-            print(res.content)
-            print(res.json())
-            assert 1==2
+            res_body = res.json()
+            assert res.status_code == 200, f'Expected a 200 status code got {res.status_code}. \nResponse::\n {json.dumps(res_body, indent=4, sort_keys=True)}'
+            assert res_body['edit']['result'] == 'Success', f'Expected to find Success in response. \nResponse::\n {json.dumps(res_body, indent=4, sort_keys=True)}'
 
 
+        with allure.step('Ensure new page appears in all page list'):
+            res = search_wiki_pages(sesh, test_page_title)
+            res_body = res.json()
+            assert res.status_code == 200, f'Expected a 200 status code got {res.status_code}. \nResponse::\n {json.dumps(res_body, indent=4, sort_keys=True)}'
 
+            found = False
+            for each in res_body['query']['allpages']:
+                if each['title'] == test_page_title:
+                    found = True
+                break
+            
+            assert found == True, f'Expected to find {test_page_title} in response. \nResponse::\n {json.dumps(res_body, indent=4, sort_keys=True)}'
+
+
+    @allure.title('Test create page without valid CSRF token')
+    def test_invalid_create_page(self):
+
+        with allure.step('Before'):
+            sesh = requests.Session()
+            username = conftest.crud_user
+            password = conftest.crud_password
+            invalid_csrf_token = random_string(20)
+
+            with allure.step('Login our test user'):
+                res_body = login_account(sesh, username, password)
+
+        with allure.step('Generate page data'):
+            test_page_title = f"Test Page {random_string()}"
+
+            new_page = page_base_fields(invalid_csrf_token)
+            new_page['title'] = test_page_title
+            new_page['text'] = f"New Page Create Example"
+            
+            res = post_page(sesh, new_page)
+
+            res_body = res.json()
+            assert res_body['error']['code'] == 'badtoken', f'Expected to find badtoken in response. \nResponse::\n {json.dumps(res_body, indent=4, sort_keys=True)}'
