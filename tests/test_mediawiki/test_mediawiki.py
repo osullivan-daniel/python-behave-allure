@@ -10,7 +10,7 @@ from helpers.media_wiki.page import get_wiki_page, post_page, search_wiki_pages
 from helpers.media_wiki.create_account import create_new_account
 from helpers.media_wiki.csrf_token_generate import gen_csrf_token
 
-class Test_mediawiki:
+class Test_single_mediawiki_test:
 
     @allure.title('Test mediawiki')
     def test_mediawiki(self):
