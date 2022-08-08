@@ -13,8 +13,8 @@ def create_new_account(sesh, username: str = None, password: str = None, run_ass
     res_body = res.json()
 
     if run_assertions:
-        assert res.status_code == 200, f'Expected a 200 status code got {res.status_code}. \nResponse::\n {json.dumps(res_body, indent=4, sort_keys=True)}'
-        assert 'error' or 'warnings' not in res_body, f'Found error/warning in response body. \nResponse::\n {json.dumps(res_body, indent=4, sort_keys=True)}'
+        assert res.status_code == 200, f'Expected a 200 status code got {res.status_code}. \nResponse::\n {json.dumps(res_body, indent=4)}'
+        assert 'error' or 'warnings' not in res_body, f'Found error/warning in response body. \nResponse::\n {json.dumps(res_body, indent=4)}'
 
     create_account_token = res_body['query']['tokens']['createaccounttoken']
 
@@ -27,8 +27,8 @@ def create_new_account(sesh, username: str = None, password: str = None, run_ass
     res_body = res.json()
 
     if run_assertions:
-        assert res.status_code == 200, f'Expected a 200 status code got {res.status_code}. \nResponse::\n {json.dumps(res_body, indent=4, sort_keys=True)}'
-        assert res_body['createaccount']['status'] != 'FAIL', f'Status FAIL found. \nResponse::\n {json.dumps(res_body, indent=4, sort_keys=True)}'
+        assert res.status_code == 200, f'Expected a 200 status code got {res.status_code}. \nResponse::\n {json.dumps(res_body, indent=4)}'
+        assert res_body['createaccount']['status'] != 'FAIL', f'Status FAIL found. \nResponse::\n {json.dumps(res_body, indent=4)}'
 
     return username, password, res_body
 

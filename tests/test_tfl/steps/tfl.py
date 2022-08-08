@@ -29,8 +29,8 @@ def step_impl(context, search_from, search_to, mode_of_transport=None):
 
     context.res_code, context.res_content = make_get_request(url)
 
-    allure.attach(json.dumps(context.res_content, indent=4, sort_keys=True), 'apiResponse.txt')
-    # print(json.dumps(context.res_content, indent=4, sort_keys=True))
+    allure.attach(json.dumps(context.res_content, indent=4), 'apiResponse.txt')
+    # print(json.dumps(context.res_content, indent=4))
 
 
 @then('they should get a valid result')

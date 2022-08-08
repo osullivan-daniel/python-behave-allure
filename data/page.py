@@ -13,3 +13,9 @@ def get_all_pages(search_param):
         "format": "json",
     }
      
+def get_by_page_id(page_id):
+    return {
+        "action": "parse",
+        "pageid": page_id,
+        "format": "json",
+    }

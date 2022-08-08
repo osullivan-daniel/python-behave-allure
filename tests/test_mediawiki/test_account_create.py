@@ -24,7 +24,7 @@ class Test_create_account:
             
             assert 'PASS' in res_body['clientlogin']['status'], \
             f'''We shouldnt get the status PASS when we successfully log in
-            please check the message for more details.\nResponse::\n {json.dumps(res_body, indent=4, sort_keys=True)}'''
+            please check the message for more details.\nResponse::\n {json.dumps(res_body, indent=4)}'''
 
 
     @allure.title('Test unable to create second account with the same username')
@@ -41,9 +41,9 @@ class Test_create_account:
             # There is no message code in valid messages so it should be there
             assert 'messagecode' in res_body['createaccount'], \
             f'''We shouldnt be able to create two accounts with the same user name 
-            please check the message for more details. \nResponse::\n {json.dumps(res_body, indent=4, sort_keys=True)}'''
+            please check the message for more details. \nResponse::\n {json.dumps(res_body, indent=4)}'''
 
             # if the message code is there we expect it to be userexists
             assert res_body['createaccount']['messagecode'] == 'userexists', \
             f'''We shouldnt be able to create two accounts with the same user name 
-            please check the message for more details. \nResponse::\n {json.dumps(res_body, indent=4, sort_keys=True)}'''
+            please check the message for more details. \nResponse::\n {json.dumps(res_body, indent=4)}'''
