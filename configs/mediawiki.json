@@ -1,0 +1,9 @@
+{
+    "mediawiki":{
+        "base_url": "http://localhost:8080",
+        "api_end_point": "/w/api.php",
+        "lg_token_endpoint": "?action=query&meta=tokens&format=json&type=login"
+    }
+}
+
+

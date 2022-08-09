@@ -17,3 +17,5 @@ Once registered:
 
 ## The Tests
 Note one of the tfl tests fails. This is intentonal. As the test requests a journey by bus and only one by rail is returned the test fails. The returned json makes no mention of it being an alternative so to me that sounds like a fail on the face of without discussing the ratonal behind it working like this.
+
+## Improvments  
