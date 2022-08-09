@@ -15,6 +15,10 @@ Once registered:
     - Copy your 'Primary key' and replace the string 'PUT_YOUR_APP_KEY_HERE' in your 'configs/tfl.json'  
 
 
+mediawiki
+Mediawiki tests are designed to run against a local containerised verson instructons here: https://www.mediawiki.org/wiki/MediaWiki-Docker.  
+This can be changed however by updating the url in python-behave-allure/configs/mediawiki.json
+
 ## The Tests
 Note one of the tfl tests fails. This is intentonal. As the test requests a journey by bus and only one by rail is returned the test fails. The returned json makes no mention of it being an alternative so to me that sounds like a fail on the face of without discussing the ratonal behind it working like this.
 
